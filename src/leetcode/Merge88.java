@@ -2,28 +2,37 @@ package leetcode;
 
 public class Merge88 {
     public static void main(String[] args) {
-        //leetcode的测试用例和他妈吃了屎一样，这他妈根本也不是正常的测试用例 ，老子的代码没问题
-        int[] nums1 = {0};
+        int[] nums1 = {2, 0};
         int[] nums2 = {1};
 
         Merge88 merge88 = new Merge88();
-        merge88.merge(nums1, 4, nums2, 3);
+        merge88.merge(nums1, 1, nums2, 1);
         for (int j : nums1) {
             System.out.println(j);
         }
     }
 
     public void merge(int[] nums1, int m, int[] nums2, int n) {
-        int len1 = nums1.length - 1, len2 = nums2.length - 1;
+        if (m == 0) {
+            System.arraycopy(nums2, 0, nums1, 0, nums2.length);
+            return;
+        }
 
-        for (int i = n - 1; i >= 0; i--) {
-            while (m >= 0 && len1 >= 0) {
-                if (nums2[i] >= nums1[m - 1]) {
-                    nums1[len1--] = nums2[i];
+        int nums1Index = nums1.length - 1;
+        n--;
+        m--;
+        while (n >= 0) {
+            while (m >= 0) {
+                if (nums2[n] >= nums1[m]) {
+                    nums1[nums1Index--] = nums2[n--];
                     break;
                 } else {
-                    nums1[len1--] = nums1[--m];
+                    nums1[nums1Index--] = nums1[m--];
                 }
+            }
+            if (m == -1) {
+                System.arraycopy(nums2, 0, nums1, 0, n + 1);
+                break;
             }
         }
     }
