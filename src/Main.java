@@ -1,10 +1,16 @@
+import DataStructure.BST;
+
 public class Main {
     public static void main(String[] args) {
-        int[][] area = new int[3][2];
-        int[][] moves = {
-                {-1, 0}, {1, 0}, {0, -1}, {0, 1},
-        };
-        System.out.println(1 + moves[0][0]);
-        System.out.println(area.length);
+        BST<Integer> bst = new BST<>();
+        bst.add(10);
+        bst.add(12);
+        bst.add(8);
+        bst.add(4);
+        bst.add(9);
+        bst.add(11);
+        bst.add(15);
+        bst.removeValue(12);
+        bst.levelOrder();
     }
 }
