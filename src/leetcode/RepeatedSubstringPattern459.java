@@ -17,26 +17,21 @@ public class RepeatedSubstringPattern459 {
     }
 
     public boolean repeatedSubstringPattern(String s) {
-        char[] chars = s.toCharArray();
-        Set<Character> appearChar = new HashSet<>();
+        int[] next = new int[s.length()];
+        getNext(s, next);
+        return next[s.length() - 1] != 0 && s.length() % (s.length() - next[s.length() - 1]) == 0;
+    }
 
-        for (char aChar : chars) {
-            appearChar.add(aChar);
-        }
-
-        int end = 0;
-        for (int i = 0; i < chars.length; i++) {
-            appearChar.remove(chars[i]);
-            if (appearChar.size() == 0) {
-                end = i;
+    private void getNext(String s, int[] next) {
+        int j = 0;
+        next[0] = 0;
+        for (int i = 1; i < s.length(); i++) {
+            while (j > 0 && s.charAt(i) != s.charAt(j)) {
+                j = next[j - 1];
+            }
+            if (s.charAt(i) == s.charAt(j)) {
+                next[i] = ++j;
             }
         }
-
-        int start = 0;
-        String pattern = s.substring(start, end + 1);
-        if (pattern != s.substring(end + 1, end + 1 + end)) {
-
-        }
-        return false;
     }
 }
