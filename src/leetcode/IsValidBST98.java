@@ -2,7 +2,7 @@ package leetcode;
 
 import java.util.Stack;
 
-public class IsValidBST86 {
+public class IsValidBST98 {
     public static void main(String[] args) {
 
     }
@@ -12,10 +12,11 @@ public class IsValidBST86 {
         if (root == null) {
             return true;
         }
+
         if (!isValidBST(root.left)) {
-           return false;
+            return false;
         }
-        if (preNode != null && preNode.val >= root.val) {
+        if (preNode != null && preNode.val > root.val) {
             return false;
         }
         preNode = root;
@@ -32,22 +33,33 @@ public class IsValidBST86 {
         if (root == null) {
             return true;
         }
+
+        Stack<TreeNode> preStack = new Stack<>();
+        preStack.push(root);
+        while (!preStack.empty()) {
+            TreeNode node = preStack.pop();
+
+            preStack.push(preStack.pop().right);
+            preStack.push(preStack.pop().left);
+        }
+
         TreeNode preNode = null;
-        Stack<TreeNode> treeNodeStack = new Stack<>();
-        while (root != null || !treeNodeStack.empty()) {
+        Stack<TreeNode> stack = new Stack<>();
+        stack.push(root);
+
+        while (root != null || !stack.empty()) {
             while (root != null) {
-                treeNodeStack.push(root);
+                stack.push(root);
                 root = root.left;
             }
-
-            TreeNode node = treeNodeStack.pop();
-            if (preNode != null && preNode.val >= node.val) {
+            TreeNode node = stack.pop();
+            if (preNode != null && preNode.val > node.val) {
                 return false;
             }
-
             preNode = node;
-            root = node.right;
+            node = node.right;
         }
+
         return true;
     }
 }
