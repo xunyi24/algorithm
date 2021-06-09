@@ -1,12 +1,14 @@
 import DataStructure.BST;
 
+import java.util.Arrays;
+
 public class Main {
     int value;
     public static void main(String[] args) {
-        System.out.println(5/2);
+
+        boolean[] booleans = new boolean[201];
+
+        System.out.println(booleans[-1]);
     }
 
-    public int set() {
-        return value;
-    }
 }
